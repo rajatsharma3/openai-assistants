@@ -53,7 +53,7 @@ export const createMessage = async (req, res) => {
     const thread = req.body;
     const message = await openai.beta.threads.messages.create(thread.id, {
       role: "user",
-      content: "which is the sister company of drapcode",
+      content: "what is the distance between earth and sun",
     });
     res.send(message);
   } catch (err) {
