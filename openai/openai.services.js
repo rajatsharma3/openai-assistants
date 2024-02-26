@@ -8,6 +8,7 @@ const apiKey = process.env.OPENAI_API_KEY;
 
 const openai = new OpenAI({ apiKey });
 
+//upload a file
 export const uploadFile = async (req, res) => {
   try {
     const file = await openai.files.create({
@@ -22,6 +23,7 @@ export const uploadFile = async (req, res) => {
   }
 };
 
+//create an assistant
 export const createAssistants = async (req, res) => {
   try {
     const assistant = await openai.beta.assistants.create({
@@ -30,7 +32,7 @@ export const createAssistants = async (req, res) => {
         "You are a drapcode website assistant.try to provide every answer in professional way",
       tools: [{ type: "retrieval" }],
       model: "gpt-4-turbo-preview",
-      file_ids: ["file-2JR2J6V3JEBqyiUxFg2ngIYK"],
+      file_ids: ["file-2JR2J6V3JEBqyiUxFg2ngIYK"], //change the file id
     });
 
     res.send(assistant);
@@ -39,6 +41,7 @@ export const createAssistants = async (req, res) => {
   }
 };
 
+//create a thread
 export const createThread = async (req, res) => {
   try {
     const thread = await openai.beta.threads.create();
@@ -48,6 +51,7 @@ export const createThread = async (req, res) => {
   }
 };
 
+//create a message
 export const createMessage = async (req, res) => {
   try {
     const thread = req.body;
@@ -61,8 +65,10 @@ export const createMessage = async (req, res) => {
   }
 };
 
+//run the assistant
 export const runAssistant = async (req, res) => {
   try {
+    //provide the thread_id and assistant_id in req
     const thread_id = req.body.thread_id;
     const assistant_id = req.body.assistant_id;
     console.log("thread_id", thread_id);
